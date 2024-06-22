@@ -13,8 +13,9 @@
 Groove Music is a music composition tool.
 ## User Stories
 <b>As a user, I would like to,</b>
-<ol>
+<ul>
   <li>Add note presets to a staging area in order to compose music</li>
+  <li>Delete note presets from staging area</li>
   <li>Vary the instrument tone of the note presets</li>
   <li>Vary the length of notes</li>
   <li>Have multiple different notes be played concurrently</li>
@@ -22,8 +23,11 @@ Groove Music is a music composition tool.
   <li>Vary the tempo of my composition</li>
   <li>Vary the loudness of my composition</li>
   <li>Hear my composition played back to me</li>
-  <li>Save my composition as an mp4 file</li>
-</ol>
+  <li>Export my composition as an mp4 file</li>
+  <li>Save my composition locally</li>
+  <li>Import from local save</li>
+</ul>
+
 ## Contributors
 
 <p align="center"><a href="https://github.com/AndrewLi200504/groove_music/graphs/contributors"><img src="https://contrib.rocks/image?repo=AndrewLi200504/groove_music" /></a></p>
