@@ -26,6 +26,7 @@ Groove Music is a music composition tool. It aims to allow users of any musical 
   <li>Export my composition as an mp4 file</li>
   <li>Save my composition locally</li>
   <li>Import from local save</li>
+  <li>Able to clear/restart composition</li>
 </ul>
 
 ## Contributors
