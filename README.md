@@ -10,8 +10,7 @@
 
 ## What is Groove Music?
 
-Groove Music is a music composition tool.
-## User Stories
+Groove Music is a music composition tool. It aims to allow users of any musical experience to create their own works of music complete with tempo, rhythm, and instrumentals.## User Stories
 <b>As a user, I would like to,</b>
 <ul>
   <li>Add note presets to a staging area in order to compose music</li>
@@ -26,6 +25,7 @@ Groove Music is a music composition tool.
   <li>Export my composition as an mp4 file</li>
   <li>Save my composition locally</li>
   <li>Import from local save</li>
+  <li>Able to clear/restart composition</li>
 </ul>
 
 ## Contributors
