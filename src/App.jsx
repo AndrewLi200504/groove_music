@@ -17,7 +17,6 @@ function App() {
         toSave={composition}
         onLoad={setComposition}
         onExport={logArguments}
-        onPlay={logArguments}
       />
       <TrackManager
         composition={composition}
