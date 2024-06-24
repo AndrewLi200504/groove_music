@@ -44,7 +44,11 @@ function play(composition) {
   const now = Tone.now();
 
   for (let i = 0; i < composition.length; i++) {
-    synth.triggerAttackRelease(composition[i], "4n", now + i);
+    if (composition[i] === "Rest"){
+      synth.triggerAttackRelease(null, "4n", now + i);
+    } else{
+      synth.triggerAttackRelease(composition[i], "4n", now + i);
+    }
   }
 }
 

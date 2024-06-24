@@ -57,6 +57,7 @@ function App() {
           "A4",
           "A#4",
           "B4",
+          "Rest",
         ]}
         addNote={(note) =>
           setComposition((oldComposition) => [...oldComposition, note])
