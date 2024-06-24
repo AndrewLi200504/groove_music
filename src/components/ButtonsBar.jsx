@@ -1,3 +1,5 @@
+import * as Tone from "tone";
+
 function requestSelection() {
   return new Promise((resolve, reject) => {
     let input = document.createElement("input");
@@ -36,6 +38,16 @@ function downloadFile(contents, filename) {
   anchor.click();
 }
 
+function play(composition) {
+  //create a synth and connect it to the main output (your speakers)
+  const synth = new Tone.Synth().toDestination();
+  const now = Tone.now();
+
+  for (let i = 0; i < composition.length; i++) {
+    synth.triggerAttackRelease(composition[i], "4n", now + i);
+  }
+}
+
 function ButtonsBar(props) {
   return (
     <>
@@ -49,6 +61,7 @@ function ButtonsBar(props) {
       <button onClick={() => loadFile().then(JSON.parse).then(props.onLoad)}>
         Load
       </button>
+      <button onClick={() => play(props.toSave)}>Play</button>
     </>
   );
 }
