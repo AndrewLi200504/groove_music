@@ -1,6 +1,5 @@
-
-function TrackManager {
-    return null;
+function TrackManager() {
+  return null;
 }
 
-export default TrackManager;
+export { TrackManager };
