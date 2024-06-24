@@ -14,8 +14,8 @@ function App() {
   return (
     <>
       <ButtonsBar
-        onSave={logArguments}
-        onLoad={logArguments}
+        toSave={composition}
+        onLoad={setComposition}
         onExport={logArguments}
         onPlay={logArguments}
       />

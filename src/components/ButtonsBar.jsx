@@ -28,8 +28,29 @@ function loadFile() {
   });
 }
 
+function downloadFile(contents, filename) {
+  const anchor = document.createElement("a");
+  const file = new Blob([contents], { type: "text/plan" });
+  anchor.download = filename;
+  anchor.href = URL.createObjectURL(file);
+  anchor.click();
+}
+
 function ButtonsBar(props) {
-  return <button onClick={() => loadFile().then(props.onLoad)}>Load</button>;
+  return (
+    <>
+      <button
+        onClick={() =>
+          downloadFile(JSON.stringify(props.toSave), "composition.json")
+        }
+      >
+        Save
+      </button>
+      <button onClick={() => loadFile().then(JSON.parse).then(props.onLoad)}>
+        Load
+      </button>
+    </>
+  );
 }
 
 export { ButtonsBar };
