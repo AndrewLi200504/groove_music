@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-// Main App
-function App() {
-  const [count, setCount] = useState(0)
+import { useState } from "react";
+import { NoteAdder } from "./components/NoteAdder";
+import { TrackManager } from "./components/TrackManager";
+import { ButtonsBar } from "./components/ButtonsBar";
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+function logArguments() {
+  for (let argument of arguments) {
+    console.log(argument);
+  }
 }
 
-export default App
+function App() {
+  const [composition, setComposition] = useState([]);
+  return (
+    <>
+      <ButtonsBar
+        toSave={composition}
+        onLoad={setComposition}
+        onExport={logArguments}
+        onPlay={logArguments}
+      />
+      <TrackManager
+        composition={composition}
+        deleteNote={(note) =>
+          setComposition((oldComposition) => {
+            const newComposition = [...oldComposition];
+            newComposition.splice(
+              newComposition.findIndex((element) => element === note),
+              1
+            );
+            return newComposition;
+          })
+        }
+      />
+      <NoteAdder
+        notes={["C4", "C#4", "D4"]}
+        addNote={(note) =>
+          setComposition((oldComposition) => [...oldComposition, note])
+        }
+      />
+    </>
+  );
+}
+
+export default App;
