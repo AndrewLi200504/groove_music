@@ -38,7 +38,7 @@ function App() {
     play(composition);
   }
   function loadComposition() {
-    loadFile().then(JSON.parse).then(onLoad);
+    loadFile().then(JSON.parse).then(setComposition);
   }
   function downloadComposition() {
     downloadFile(JSON.stringify(composition), "composition.json");
