@@ -2,9 +2,9 @@ import { useState } from "react";
 import { NoteAdder } from "./components/NoteAdder";
 import { TrackManager } from "./components/TrackManager";
 import { ButtonsBar } from "./components/ButtonsBar";
-import { loadFile } from "../utils/load";
-import { downloadFile } from "../utils/download";
-import { play } from "../utils/play";
+import { loadFile } from "./utils/load";
+import { downloadFile } from "./utils/download";
+import { play } from "./utils/play";
 
 function App() {
   const [composition, setComposition] = useState([]);

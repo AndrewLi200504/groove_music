@@ -1,4 +1,4 @@
-function downloadFile(contents, filename) {
+export function downloadFile(contents, filename) {
   const anchor = document.createElement("a");
   const file = new Blob([contents], { type: "text/plan" });
   anchor.download = filename;

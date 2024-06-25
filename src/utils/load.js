@@ -22,7 +22,7 @@ function loadFileFromMetadata(file) {
   });
 }
 
-function loadFile() {
+export function loadFile() {
   return new Promise((resolve, reject) => {
     requestSelection().then(loadFileFromMetadata).then(resolve);
   });
