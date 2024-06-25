@@ -44,7 +44,7 @@ function App() {
     downloadFile(JSON.stringify(composition), "composition.json");
   }
   function addNote(note) {
-    (note) => setComposition((oldComposition) => [...oldComposition, note]);
+    setComposition((oldComposition) => [...oldComposition, note]);
   }
   function deleteNote(note) {
     setComposition((oldComposition) => {
