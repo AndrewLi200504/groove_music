@@ -2,12 +2,9 @@ import { useState } from "react";
 import { NoteAdder } from "./components/NoteAdder";
 import { TrackManager } from "./components/TrackManager";
 import { ButtonsBar } from "./components/ButtonsBar";
-
-function logArguments() {
-  for (let argument of arguments) {
-    console.log(argument);
-  }
-}
+import { loadFile } from "../utils/load";
+import { downloadFile } from "../utils/download";
+import { play } from "../utils/play";
 
 function App() {
   const [composition, setComposition] = useState([]);
@@ -37,32 +34,37 @@ function App() {
     "A#4",
     "B4",
   ];
+  function playComposition() {
+    play(composition);
+  }
+  function loadComposition() {
+    loadFile().then(JSON.parse).then(onLoad);
+  }
+  function downloadComposition() {
+    downloadFile(JSON.stringify(composition), "composition.json");
+  }
+  function addNote(note) {
+    (note) => setComposition((oldComposition) => [...oldComposition, note]);
+  }
+  function deleteNote(note) {
+    setComposition((oldComposition) => {
+      const newComposition = [...oldComposition];
+      newComposition.splice(
+        newComposition.findIndex((element) => element === note),
+        1
+      );
+      return newComposition;
+    });
+  }
   return (
     <>
       <ButtonsBar
-        toSave={composition}
-        onLoad={setComposition}
-        onExport={logArguments}
+        download={downloadComposition}
+        load={loadComposition}
+        play={playComposition}
       />
-      <TrackManager
-        composition={composition}
-        deleteNote={(note) =>
-          setComposition((oldComposition) => {
-            const newComposition = [...oldComposition];
-            newComposition.splice(
-              newComposition.findIndex((element) => element === note),
-              1
-            );
-            return newComposition;
-          })
-        }
-      />
-      <NoteAdder
-        notes={notes}
-        addNote={(note) =>
-          setComposition((oldComposition) => [...oldComposition, note])
-        }
-      />
+      <TrackManager composition={composition} deleteNote={deleteNote} />
+      <NoteAdder notes={notes} addNote={addNote} />
     </>
   );
 }
