@@ -5,8 +5,13 @@ function NoteAdder(props) {
   return (
     <ul>
       {notes.map((note) => (
-        <li className="note-adder__li" key={note}>
-          <button onClick={() => addNote(note)}>{note}</button>
+        <li key={note} className="inline-block mx-2 my-2">
+          <button
+            onClick={() => addNote(note)}
+            className="bg-transparent hover:bg-blue-500 hover:text-white text-blue-500 border border-blue-500 py-2 px-2 rounded inline-block"
+          >
+            {note}
+          </button>
         </li>
       ))}
     </ul>
