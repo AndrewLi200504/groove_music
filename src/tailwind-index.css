@@ -589,12 +589,8 @@ video {
   display: contents;
 }
 
-.h-\[100\%\] {
-  height: 100%;
-}
-
-.w-\[80\%\] {
-  width: 80%;
+.w-\[20\%\] {
+  width: 20%;
 }
 
 .rounded {
