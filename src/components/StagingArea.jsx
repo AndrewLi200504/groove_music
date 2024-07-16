@@ -3,10 +3,10 @@ import React from "react";
 const StagingArea = () => {
   return (
     <div
-      className="inline-block box-border m-auto h-[100%] w-[20%] p-4 
-    border-4 bg-green-500 m4"
+      className="inline-block box-border m-auto h-screen w-[100%] p-4 
+    border-4 bg-teal-200 m4"
     >
-      E
+      Staging Area
     </div>
   );
 };
