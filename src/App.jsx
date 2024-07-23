@@ -51,9 +51,8 @@ function App() {
         load={loadComposition}
         play={playComposition}
       />
-      <TrackManager composition={composition} deleteNote={deleteNote} />
+      <StagingArea composition={composition} deleteNote={deleteNote} />
       <NoteAdder notes={notes} addNote={addNote} />
-      <StagingArea />
     </>
   );
 }
