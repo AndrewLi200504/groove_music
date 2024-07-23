@@ -6,7 +6,7 @@ function TrackNote({ note }) {
       className="inline-block box-border float-left border-2 border-black bg-green-500 text-center h-10"
       style={{ width: TEMPO_WIDTH }}
     >
-      {note}
+      {note.tone}
     </div>
   );
 }
