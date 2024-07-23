@@ -1,14 +1,8 @@
 import React from "react";
+import { TrackManager } from "./TrackManager";
 
-const StagingArea = () => {
-  return (
-    <div
-      className="inline-block box-border m-auto h-[100%] w-[20%] p-4 
-    border-4 bg-green-500 m4"
-    >
-      E
-    </div>
-  );
-};
+function StagingArea({ composition, deleteNote }) {
+  return <TrackManager composition={composition} deleteNote={deleteNote} />;
+}
 
 export { StagingArea };
