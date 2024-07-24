@@ -8,20 +8,10 @@ import { downloadFile } from "./utils/download";
 import { play } from "./utils/play";
 
 function App() {
-  const [composition, setComposition] = useState([]);
-  const notes = [
-    "C",
-    "C#",
-    "D",
-    "E\u266D",
-    "F",
-    "F#",
-    "G",
-    "A\u266D",
-    "A",
-    "B\u266D",
-    "B",
-  ];
+  const [composition, setComposition] = useState([
+    { tone: "C", position: 1, duration: 1 },
+    { tone: "D", position: 2, duration: 0.5 },
+  ]);
   function playComposition() {
     play(composition);
   }
@@ -54,8 +44,11 @@ function App() {
         load={loadComposition}
         play={playComposition}
       />
-      <StagingArea composition={composition} deleteNote={deleteNote} />
-      <NoteAdder notes={notes} addNote={addNote} />
+      <StagingArea
+        composition={composition}
+        addNote={addNote}
+        deleteNote={deleteNote}
+      />
     </>
   );
 }
