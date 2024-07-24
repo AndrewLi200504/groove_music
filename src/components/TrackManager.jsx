@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const TEMPO_WIDTH = 40;
 
-function TrackNote({ note }) {
+function TrackNote({ note, deleteNote }) {
   return (
     <div
       className="absolute border-black bg-green-500 h-full"
@@ -11,6 +11,7 @@ function TrackNote({ note }) {
         left: note.position * TEMPO_WIDTH,
         width: note.duration * TEMPO_WIDTH,
       }}
+      onClick={() => deleteNote(note)}
     />
   );
 }
@@ -18,7 +19,7 @@ function TrackNote({ note }) {
 function TrackRow({ tone, addNote, deleteNote, notes }) {
   const [lastMouseDown, setLastMouseDown] = useState(null);
   const minWidth =
-    (Math.max(notes.map((note) => note.position + note.duration)) + 5) *
+    (Math.max(...notes.map((note) => note.position + note.duration), 0) + 5) *
     TEMPO_WIDTH;
   function handleMouseDown(event) {
     if (event.button == 0) {
@@ -26,10 +27,12 @@ function TrackRow({ tone, addNote, deleteNote, notes }) {
     }
   }
   function handleMouseUp(event) {
-    if (event.button == 0) {
-      const end = event.nativeEvent.offsetX / TEMPO_WIDTH;
+    const end = event.nativeEvent.offsetX / TEMPO_WIDTH;
+    if (event.button == 0 && lastMouseDown != null) {
       const duration = end - lastMouseDown;
-      addNote({ tone: tone, position: lastMouseDown, duration: duration });
+      if (duration > 0.1) {
+        addNote({ tone: tone, position: lastMouseDown, duration: duration });
+      }
       setLastMouseDown(null);
     }
   }
@@ -45,7 +48,7 @@ function TrackRow({ tone, addNote, deleteNote, notes }) {
         style={{ minWidth: minWidth }}
       >
         {notes.map((note) => (
-          <TrackNote key={note} note={note} deleteNote={deleteNote} />
+          <TrackNote key={note.position} note={note} deleteNote={deleteNote} />
         ))}
       </div>
     </div>
