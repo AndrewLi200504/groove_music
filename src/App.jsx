@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { NoteAdder } from "./components/NoteAdder";
-import { TrackManager } from "./components/TrackManager";
 import { ButtonsBar } from "./components/ButtonsBar";
 import { StagingArea } from "./components/StagingArea";
 import { loadFile } from "./utils/load";
@@ -8,20 +6,7 @@ import { downloadFile } from "./utils/download";
 import { play } from "./utils/play";
 
 function App() {
-  const [composition, setComposition] = useState([]);
-  const notes = [
-    "C",
-    "C#",
-    "D",
-    "E\u266D",
-    "F",
-    "F#",
-    "G",
-    "A\u266D",
-    "A",
-    "B\u266D",
-    "B",
-  ];
+  const [composition, setComposition] = useState([[]]);
   function playComposition() {
     play(composition);
   }
@@ -31,18 +16,30 @@ function App() {
   function downloadComposition() {
     downloadFile(JSON.stringify(composition), "composition.json");
   }
-  function addNote(note) {
-    setComposition((oldComposition) => [...oldComposition, note]);
-  }
-  function deleteNote(note) {
+  function addNote(trackIndex, note) {
     setComposition((oldComposition) => {
       const newComposition = [...oldComposition];
-      newComposition.splice(
-        newComposition.findIndex((element) => element === note),
-        1
-      );
+      const toReplace = [...newComposition[trackIndex]];
+      toReplace.push(note);
+      toReplace.sort((a, b) => a.duration - b.duration);
+      newComposition[trackIndex] = toReplace;
       return newComposition;
     });
+  }
+  function deleteNote(trackIndex, note) {
+    setComposition((oldComposition) => {
+      const newComposition = [...oldComposition];
+      const toReplace = [...newComposition[trackIndex]];
+      toReplace.splice(
+        toReplace.findIndex((element) => element === note),
+        1
+      );
+      newComposition[trackIndex] = toReplace;
+      return newComposition;
+    });
+  }
+  function addTrack() {
+    setComposition((oldComposition) => [...oldComposition, []]);
   }
   return (
     <>
@@ -50,10 +47,13 @@ function App() {
         download={downloadComposition}
         load={loadComposition}
         play={playComposition}
+        addTrack={addTrack}
       />
-      <TrackManager composition={composition} deleteNote={deleteNote} />
-      <NoteAdder notes={notes} addNote={addNote} />
-      <StagingArea />
+      <StagingArea
+        composition={composition}
+        addNote={addNote}
+        deleteNote={deleteNote}
+      />
     </>
   );
 }
