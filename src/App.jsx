@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { NoteAdder } from "./components/NoteAdder";
-import { TrackManager } from "./components/TrackManager";
 import { ButtonsBar } from "./components/ButtonsBar";
 import { StagingArea } from "./components/StagingArea";
 import { loadFile } from "./utils/load";
