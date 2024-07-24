@@ -2,13 +2,14 @@ import React from "react";
 import { TrackManager } from "./TrackManager";
 
 function StagingArea({ composition, addNote, deleteNote }) {
-  return (
+  return composition.map((track, index) => (
     <TrackManager
-      composition={composition}
-      addNote={addNote}
-      deleteNote={deleteNote}
+      key={index}
+      composition={track}
+      addNote={(note) => addNote(index, note)}
+      deleteNote={(note) => deleteNote(index, note)}
     />
-  );
+  ));
 }
 
 export { StagingArea };

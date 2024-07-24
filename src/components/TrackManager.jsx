@@ -84,21 +84,23 @@ function TrackRow({ tone, addNote, deleteNote, notes }) {
 }
 
 function TrackManager({ composition, addNote, deleteNote }) {
-  const tones = [
-    "C",
-    "C#",
-    "D",
-    "E\u266D",
-    "F",
-    "F#",
-    "G",
-    "A\u266D",
-    "A",
-    "B\u266D",
-    "B",
-  ];
+  const tones = ["1", "2", "3", "4", "5", "6", "7", "8"]
+    .map((el) => [
+      "C" + el,
+      "C#" + el,
+      "D" + el,
+      "E\u266D" + el,
+      "F" + el,
+      "F#" + el,
+      "G" + el,
+      "A\u266D" + el,
+      "A" + el,
+      "B\u266D" + el,
+      "B" + el,
+    ])
+    .flat();
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto overflow-y-auto box-border h-96 my-3">
       <ul>
         {tones.map((tone, index) => (
           <li key={index}>

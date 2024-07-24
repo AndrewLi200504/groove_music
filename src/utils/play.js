@@ -4,12 +4,13 @@ export function play(composition) {
   const synth = new Tone.PolySynth().toDestination();
   const now = Tone.now();
 
-  console.log(composition);
-  for (const { tone, position, duration } of composition) {
-    synth.triggerAttackRelease(
-      tone.replaceAll("\u266D", "b") + "4",
-      duration,
-      now + position
-    );
+  for (const track of composition) {
+    for (const { tone, position, duration } of track) {
+      synth.triggerAttackRelease(
+        tone.replaceAll("\u266D", "b"),
+        duration,
+        now + position
+      );
+    }
   }
 }
