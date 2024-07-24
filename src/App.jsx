@@ -10,7 +10,7 @@ import { play } from "./utils/play";
 function App() {
   const [composition, setComposition] = useState([
     { tone: "C", position: 1, duration: 1 },
-    { tone: "D", position: 2, duration: 0.5 },
+    { tone: "D", position: 10, duration: 0.5 },
   ]);
   function playComposition() {
     play(composition);
@@ -22,10 +22,8 @@ function App() {
     downloadFile(JSON.stringify(composition), "composition.json");
   }
   function addNote(note) {
-    setComposition((oldComposition) => [
-      ...oldComposition,
-      { tone: note, position: oldComposition.length * 1 },
-    ]);
+    console.log(note, composition);
+    setComposition((oldComposition) => [...oldComposition, note]);
   }
   function deleteNote(note) {
     setComposition((oldComposition) => {
