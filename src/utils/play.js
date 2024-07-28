@@ -1,9 +1,11 @@
 import * as Tone from "tone";
 
 export const defaultBpm = 120;
-export function play(composition, bpm) {
+export const defaultVolume = 0;
+export function play(composition, bpm, volume) {
   const synth = new Tone.PolySynth().toDestination();
   const now = Tone.now();
+  synth.volume.value = volume;
 
   for (const track of composition) {
     for (const { tone, position, duration } of track) {
@@ -14,5 +16,8 @@ export function play(composition, bpm) {
       );
     }
   }
-  return () => synth.disconnect();
+  return {
+    stopPlaying: () => synth.disconnect().dispose(),
+    setVolume: (volume) => (synth.volume.value = volume),
+  };
 }

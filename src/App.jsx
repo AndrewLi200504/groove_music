@@ -1,19 +1,20 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ButtonsBar } from "./components/ButtonsBar";
 import { StagingArea } from "./components/StagingArea";
 import { loadFile } from "./utils/load";
 import { downloadFile } from "./utils/download";
-import { play, defaultBpm } from "./utils/play";
+import { play, defaultBpm, defaultVolume } from "./utils/play";
 
 function App() {
   const [composition, setComposition] = useState([[]]);
   const [bpm, setBpm] = useState(defaultBpm);
-  const controls = useRef({ stopPlaying: null });
+  const [volume, setVolume] = useState(defaultVolume);
+  const controls = useRef({ commands: null });
   function playComposition() {
-    if (controls.stopPlaying) {
-      controls.stopPlaying().disconnect().dispose();
+    if (controls.commands) {
+      controls.commands.stopPlaying();
     }
-    controls.stopPlaying = play(composition, bpm);
+    controls.commands = play(composition, bpm, volume);
   }
   function loadComposition() {
     loadFile().then(JSON.parse).then(setComposition);
@@ -46,6 +47,11 @@ function App() {
   function addTrack() {
     setComposition((oldComposition) => [...oldComposition, []]);
   }
+  useEffect(() => {
+    if (controls.commands) {
+      controls.commands.setVolume(volume);
+    }
+  }, [volume]);
   return (
     <>
       <ButtonsBar
@@ -58,6 +64,11 @@ function App() {
         type="number"
         value={bpm}
         onChange={(e) => setBpm(e.target.value)}
+      />
+      <input
+        type="number"
+        value={volume}
+        onChange={(e) => setVolume(e.target.value)}
       />
       <StagingArea
         composition={composition}
