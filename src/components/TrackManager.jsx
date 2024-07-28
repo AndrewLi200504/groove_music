@@ -23,16 +23,19 @@ function TrackRow({ tone, addNote, deleteNote, notes }) {
     TEMPO_WIDTH;
   function handleMouseDown(event) {
     if (event.button == 0) {
+      const curTargetRect = event.currentTarget.getBoundingClientRect();
+      const mouseX = (event.pageX - curTargetRect.left) / TEMPO_WIDTH;
       setMouseInfo({
-        last: event.nativeEvent.offsetX / TEMPO_WIDTH,
-        now: event.nativeEvent.offsetX / TEMPO_WIDTH,
+        last: mouseX,
+        now: mouseX,
       });
     }
   }
   function handleMouseUp(event) {
-    const end = event.nativeEvent.offsetX / TEMPO_WIDTH;
     if (event.button == 0 && mouseInfo) {
-      const duration = end - mouseInfo.last;
+      const curTargetRect = event.currentTarget.getBoundingClientRect();
+      const mouseX = (event.pageX - curTargetRect.left) / TEMPO_WIDTH;
+      const duration = mouseX - mouseInfo.last;
       if (duration > 0.1) {
         addNote({ tone: tone, position: mouseInfo.last, duration: duration });
       }
@@ -41,11 +44,21 @@ function TrackRow({ tone, addNote, deleteNote, notes }) {
   }
   function handleMouseMove(event) {
     if (mouseInfo) {
-      const mouseX = event.nativeEvent.offsetX / TEMPO_WIDTH;
-      setMouseInfo((oldInfo) => ({
-        ...oldInfo,
-        now: mouseX,
-      }));
+      const curTargetRect = event.currentTarget.getBoundingClientRect();
+      const mouseX = (event.pageX - curTargetRect.left) / TEMPO_WIDTH;
+      if (
+        notes.some(
+          (note) =>
+            note.position < mouseX && mouseX < note.position + note.duration
+        )
+      ) {
+        setMouseInfo(null);
+      } else {
+        setMouseInfo((oldInfo) => ({
+          ...oldInfo,
+          now: mouseX,
+        }));
+      }
     }
   }
   function handleMouseLeave() {
