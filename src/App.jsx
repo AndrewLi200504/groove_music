@@ -3,16 +3,17 @@ import { ButtonsBar } from "./components/ButtonsBar";
 import { StagingArea } from "./components/StagingArea";
 import { loadFile } from "./utils/load";
 import { downloadFile } from "./utils/download";
-import { play } from "./utils/play";
+import { play, defaultBpm } from "./utils/play";
 
 function App() {
   const [composition, setComposition] = useState([[]]);
+  const [bpm, setBpm] = useState(defaultBpm);
   const controls = useRef({ stopPlaying: null });
   function playComposition() {
     if (controls.stopPlaying) {
       controls.stopPlaying().disconnect().dispose();
     }
-    controls.stopPlaying = play(composition);
+    controls.stopPlaying = play(composition, bpm);
   }
   function loadComposition() {
     loadFile().then(JSON.parse).then(setComposition);
@@ -52,6 +53,11 @@ function App() {
         load={loadComposition}
         play={playComposition}
         addTrack={addTrack}
+      />
+      <input
+        type="number"
+        value={bpm}
+        onChange={(e) => setBpm(e.target.value)}
       />
       <StagingArea
         composition={composition}

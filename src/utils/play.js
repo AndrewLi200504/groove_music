@@ -1,6 +1,7 @@
 import * as Tone from "tone";
 
-export function play(composition) {
+export const defaultBpm = 120;
+export function play(composition, bpm) {
   const synth = new Tone.PolySynth().toDestination();
   const now = Tone.now();
 
@@ -8,8 +9,8 @@ export function play(composition) {
     for (const { tone, position, duration } of track) {
       synth.triggerAttackRelease(
         tone.replaceAll("\u266D", "b"),
-        duration,
-        now + position
+        (duration * defaultBpm) / bpm,
+        now + (position * defaultBpm) / bpm
       );
     }
   }
