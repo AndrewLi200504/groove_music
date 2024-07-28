@@ -13,4 +13,5 @@ export function play(composition) {
       );
     }
   }
+  return () => synth.disconnect();
 }

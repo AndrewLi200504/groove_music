@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { ButtonsBar } from "./components/ButtonsBar";
 import { StagingArea } from "./components/StagingArea";
 import { loadFile } from "./utils/load";
@@ -7,8 +7,12 @@ import { play } from "./utils/play";
 
 function App() {
   const [composition, setComposition] = useState([[]]);
+  const controls = useRef({ stopPlaying: null });
   function playComposition() {
-    play(composition);
+    if (controls.stopPlaying) {
+      controls.stopPlaying().disconnect().dispose();
+    }
+    controls.stopPlaying = play(composition);
   }
   function loadComposition() {
     loadFile().then(JSON.parse).then(setComposition);
