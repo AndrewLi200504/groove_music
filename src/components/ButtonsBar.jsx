@@ -1,11 +1,11 @@
-function ButtonsBar({ download, load, play, addTrack }) {
+function ButtonsBar({ download, load, play, addTrack}) {
   return (
     <ul>
       {[
         ["Download", download],
         ["Load", load],
         ["Play", play],
-        ["Add track", addTrack],
+        ["Add track", addTrack]
       ].map(([text, handler], index) => (
         <li
           key={index}

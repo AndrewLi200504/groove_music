@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 
-const TEMPO_WIDTH = 40;
+const TEMPO_WIDTH = 100;
+
+// A single note in a track component
+// A TrackNote takes in a position and duration (numerical) and prop
 
 function TrackNote({ position, duration, ...props }) {
   return (
@@ -15,7 +18,11 @@ function TrackNote({ position, duration, ...props }) {
     />
   );
 }
-
+// A single row in track component
+// A TrackRow takes in a numerical tone, addNote and deleteNote functions, and notes
+// It uses the state mouseInfo
+// Mouse down determines the position of the note
+// Mouse up determines duration
 function TrackRow({ tone, addNote, deleteNote, notes }) {
   const [mouseInfo, setMouseInfo] = useState(null);
   const minWidth =
@@ -82,7 +89,8 @@ function TrackRow({ tone, addNote, deleteNote, notes }) {
     </div>
   );
 }
-
+// A TrackManager takes in a composition, an addNote function and a deleteNote function.
+// TrackManager is a mapping of tones to TrackRows
 function TrackManager({ composition, addNote, deleteNote }) {
   const tones = ["1", "2", "3", "4", "5", "6", "7", "8"]
     .map((el) => [
@@ -90,6 +98,7 @@ function TrackManager({ composition, addNote, deleteNote }) {
       "C#" + el,
       "D" + el,
       "E\u266D" + el,
+      "E" + el,
       "F" + el,
       "F#" + el,
       "G" + el,
