@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Dropdown from "./Dropdown";
 const TEMPO_WIDTH = 100;
 
 // A single note in a track component
