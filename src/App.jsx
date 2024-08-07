@@ -3,12 +3,12 @@ import { ButtonsBar } from "./components/ButtonsBar";
 import { StagingArea } from "./components/StagingArea";
 import { loadFile } from "./utils/load";
 import { downloadFile } from "./utils/download";
-import { play, defaultBpm, defaultVolume } from "./utils/play";
+import { play, defaultBpm } from "./utils/play";
 
 function App() {
   const [composition, setComposition] = useState([[]]);
   const [bpm, setBpm] = useState(defaultBpm);
-  const [volume, setVolume] = useState(defaultVolume);
+  const [volume, setVolume] = useState(100);
   const controls = useRef({ commands: null });
   function playComposition() {
     if (controls.commands) {
