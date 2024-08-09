@@ -30,3 +30,22 @@ export function play(composition, bpm, volume) {
             (synth.volume.value = percentageToDecibels(volume)),
     };
 }
+export function startMetronome(bpm) {
+    const synthM = new Tone.Synth().toDestination();
+    synthM.volume.value =  -10; 
+
+    const metronome = new Tone.Loop(time => {
+        synthM.triggerAttackRelease('C4', '32n', time);
+      }, '4n');
+
+    Tone.getTransport().bpm.value = bpm;
+  
+    Tone.start()
+      .then(() => {
+        metronome.start(0);
+        Tone.getTransport().start();
+      })
+      return {
+        stopMetronome: () => synthM.disconnect().dispose(),
+    };
+  }

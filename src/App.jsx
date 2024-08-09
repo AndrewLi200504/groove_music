@@ -3,19 +3,33 @@ import { ButtonsBar } from "./components/ButtonsBar";
 import { StagingArea } from "./components/StagingArea";
 import { loadFile } from "./utils/load";
 import { downloadFile } from "./utils/download";
-import { play, defaultBpm } from "./utils/play";
+import { play, defaultBpm, startMetronome } from "./utils/play";
+
 
 function App() {
   const [composition, setComposition] = useState([[]]);
   const [bpm, setBpm] = useState(defaultBpm);
   const [volume, setVolume] = useState(100);
+  const [isMetronome, setIsMetronome] = useState(false);
   const controls = useRef({ commands: null });
+  const controlsM = useRef({ commands: null });
+
   function playComposition() {
     if (controls.commands) {
       controls.commands.stopPlaying();
     }
     controls.commands = play(composition, bpm, volume);
   }
+
+  function playMetronome() {
+    if (isMetronome) {
+        controlsM.commands.stopMetronome();
+    } else {
+        controlsM.commands = startMetronome(bpm);
+    }
+    setIsMetronome(!isMetronome);
+  }
+
   function loadComposition() {
     loadFile().then(JSON.parse).then(setComposition);
   }
@@ -67,10 +81,15 @@ function App() {
       />
       <input
         type="range"
-	min="0"
-	max="100"
+	      min="0"
+	      max="100"
         value={volume}
         onChange={(e) => setVolume(e.target.value)}
+      />
+      <input
+        type="button"
+        onClick={playMetronome}
+        value={isMetronome ? 'Stop Metronome' : 'Start Metronome'}
       />
       <StagingArea
         composition={composition}
