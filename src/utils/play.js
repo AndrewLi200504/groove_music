@@ -30,9 +30,9 @@ export function play(composition, bpm, volume) {
             (synth.volume.value = percentageToDecibels(volume)),
     };
 }
-export function startMetronome(bpm) {
+export function startMetronome(bpm, volume) {
     const synthM = new Tone.Synth().toDestination();
-    synthM.volume.value =  -10; 
+    synthM.volume.value = percentageToDecibels(volume)*0.5; 
 
     const metronome = new Tone.Loop(time => {
         synthM.triggerAttackRelease('C4', '32n', time);
@@ -47,5 +47,9 @@ export function startMetronome(bpm) {
       })
       return {
         stopMetronome: () => synthM.disconnect().dispose(),
+        setVolume: (volume) =>
+            (synthM.volume.value = percentageToDecibels(volume)*0.5),
+        setBPM: (bpm) =>
+            (Tone.getTransport().bpm.value = bpm),
     };
   }

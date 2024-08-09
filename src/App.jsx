@@ -25,7 +25,7 @@ function App() {
     if (isMetronome) {
         controlsM.commands.stopMetronome();
     } else {
-        controlsM.commands = startMetronome(bpm);
+        controlsM.commands = startMetronome(bpm, volume);
     }
     setIsMetronome(!isMetronome);
   }
@@ -65,7 +65,11 @@ function App() {
     if (controls.commands) {
       controls.commands.setVolume(volume);
     }
-  }, [volume]);
+    if (controlsM.commands) {
+      controlsM.commands.setVolume(volume);
+      controlsM.commands.setBPM(bpm);
+    }
+  }, [volume, bpm]);
   return (
     <>
       <ButtonsBar
@@ -77,7 +81,21 @@ function App() {
       <input
         type="number"
         value={bpm}
-        onChange={(e) => setBpm(e.target.value)}
+        min="0"
+        max="350"  
+        step="1"
+        onChange={(e) => {
+          if (e.target.value<=350) {
+            setBpm(e.target.value)
+          } else {
+            e.target.value=350
+          }
+        }}
+        onKeyDown={(e) => {
+          if (e.key === '-' || e.key === '.' || e.key === 'e') {
+            e.preventDefault();
+          }
+        }}
       />
       <input
         type="range"
